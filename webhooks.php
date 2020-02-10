@@ -49,3 +49,57 @@ if (!is_null($events['events'])) {
 	}
 }
 echo "OK";
+
+var ssId = "18zLuQ8vpKROIJfD4V98Poqf68YvL7oElQOqCryaFlnM";
+var ss = SpreadsheetApp.openById(ssId);
+var sheetProduct = ss.getSheetByName("id");
+var sheetLog = ss.getSheetByName("log"); //get sheet for log
+
+function doPost(e) {
+  var data = JSON.parse(e.postData.contents); //convert request srting in JSON format into JavaScript object
+  
+  //Log text message
+  var timeStamp = data.originalDetectIntentRequest.payload.data.timestamp;
+  var d = new Date(timeStamp); //creates a JS date object form milliseconds
+  var formattedDate = d.getDate() + "/" + (d.getMonth() + 1) + "/" + d.getFullYear();
+  
+  var userId = data.originalDetectIntentRequest.payload.data.source.userId;
+  var userText = data.originalDetectIntentRequest.payload.data.message.text;
+  var intentName = data.queryResult.intent.displayName;
+  
+  //set valus to sheet
+  var lastRow = sheetLog.getLastRow();
+  sheetLog.getRange(lastRow + 1, 1).setValue(formattedDate);
+  sheetLog.getRange(lastRow + 1, 2).setValue(userId);
+  sheetLog.getRange(lastRow + 1, 3).setValue(userText);
+  sheetLog.getRange(lastRow + 1, 4).setValue(intentName);
+  
+  //get product quantity
+  var userMsg = data.originalDetectIntentRequest.payload.data.message.text;
+  var values = sheetProduct.getRange(2, 1, sheetProduct.getLastRow(), sheetProduct.getLastColumn()).getValues();
+  for (var i = 0; i < values.length; i++) {
+    if (values[i][0] == userMsg) {
+      i = i + 2;
+      var Data = sheetProduct.getRange(i, 2).getValue();
+      
+      var result = {
+        fulfillmentMessages: [
+          {
+            platform: "line",
+            type: 4,
+            payload: {
+              line: {
+                type: "text",
+                text: Data
+              }
+            }
+          }
+        ]
+      };
+      
+      //response to dialogflow
+      var replyJSON = ContentService.createTextOutput(JSON.stringify(result)).setMimeType(ContentService.MimeType.JSON);
+      return replyJSON;
+    }
+  }
+}
