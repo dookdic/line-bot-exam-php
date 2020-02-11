@@ -33,6 +33,13 @@ else if($arrJson['events'][0]['message']['text'] == "pm25"){
   $arrPostData['messages'][0]['type'] = "image";
   $arrPostData['messages'][0]['image'] = "http://egatenvwarehouse.egat.co.th/images/pm25_as.jpg";
 }
+else if($arrJson['events'][0]['message']['text'] == "แมวไง"){
+  $arrPostData = array();
+  $arrPostData['replyToken'] = $arrJson['events'][0]['replyToken'];
+  $arrPostData['messages'][0]['type'] = "image";
+  $arrPostData['messages'][0]['originalContentUrl'] = 'https://github.com/swunews/LINE-BOT-PHP-Starter/blob/master/grief-and-loss.jpg?raw=true';
+  $arrPostData['messages'][0]['previewImageUrl'] = 'https://github.com/swunews/LINE-BOT-PHP-Starter/blob/master/grief-and-loss_preview.jpg?raw=true';
+}
 else{
   $arrPostData = array();
   $arrPostData['replyToken'] = $arrJson['events'][0]['replyToken'];
