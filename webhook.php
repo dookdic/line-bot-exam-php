@@ -31,8 +31,8 @@ else if($arrJson['events'][0]['message']['text'] == "pm25"){
   $arrPostData = array();
   $arrPostData['replyToken'] = $arrJson['events'][0]['replyToken'];
   $arrPostData['messages'][0]['type'] = "image";
-  $arrPostData['messages'][0]['originalContentUrl'] = "http://egatenvwarehouse.egat.co.th/images/pm25_as.jpg?raw=true";
-  $arrPostData['messages'][0]['previewImageUrl'] = "http://egatenvwarehouse.egat.co.th/images/pm25_as.jpg?raw=true";
+  $arrPostData['messages'][0]['originalContentUrl'] = "https://egatenvwarehouse.egat.co.th/images/pm25_as.jpg";
+  $arrPostData['messages'][0]['previewImageUrl'] = "https://egatenvwarehouse.egat.co.th/images/pm25_as.jpg";
 }
 else if($arrJson['events'][0]['message']['text'] == "แมวไง"){
   $arrPostData = array();
