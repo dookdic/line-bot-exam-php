@@ -21,11 +21,6 @@ if($arrJson['events'][0]['message']['text'] == "สวัสดี"){
   $arrPostData['replyToken'] = $arrJson['events'][0]['replyToken'];
   $arrPostData['messages'][0]['type'] = "text";
   $arrPostData['messages'][0]['text'] = "ฉันยังไม่มีชื่อนะ";
-}else if($arrJson['events'][0]['message']['text'] == "ทำอะไรได้บ้าง"){
-  $arrPostData = array();
-  $arrPostData['replyToken'] = $arrJson['events'][0]['replyToken'];
-  $arrPostData['messages'][0]['type'] = "text";
-  $arrPostData['messages'][0]['text'] = "ฉันทำอะไรไม่ได้เลย คุณต้องสอนฉันอีกเยอะ";
 }
 else if($arrJson['events'][0]['message']['text'] == "pm25"){
   $arrPostData = array();
@@ -34,13 +29,7 @@ else if($arrJson['events'][0]['message']['text'] == "pm25"){
   $arrPostData['messages'][0]['originalContentUrl'] = "https://egatenvwarehouse.egat.co.th/images/pm25_as.jpg";
   $arrPostData['messages'][0]['previewImageUrl'] = "https://egatenvwarehouse.egat.co.th/images/pm25_as.jpg";
 }
-else if($arrJson['events'][0]['message']['text'] == "แมวไง"){
-  $arrPostData = array();
-  $arrPostData['replyToken'] = $arrJson['events'][0]['replyToken'];
-  $arrPostData['messages'][0]['type'] = "image";
-  $arrPostData['messages'][0]['originalContentUrl'] = 'https://github.com/swunews/LINE-BOT-PHP-Starter/blob/master/grief-and-loss.jpg?raw=true';
-  $arrPostData['messages'][0]['previewImageUrl'] = 'https://github.com/swunews/LINE-BOT-PHP-Starter/blob/master/grief-and-loss_preview.jpg?raw=true';
-}
+
 else{
   $arrPostData = array();
   $arrPostData['replyToken'] = $arrJson['events'][0]['replyToken'];
